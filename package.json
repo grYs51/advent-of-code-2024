@@ -1,0 +1,17 @@
+{
+  "name": "advent-of-code-2024",
+  "module": "scripts/main.ts",
+  "type": "module",
+  "scripts": {
+    "solve": "bun --watch ./scripts/solve.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "chalk": "^5.3.0",
+    "dedent": "^1.5.3",
+    "prettier": "^3.4.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.7.2"
+  }
+}
