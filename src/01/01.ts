@@ -1,7 +1,3 @@
-const input: string[] = require("fs")
-  .readFileSync(require("path").join(__dirname, "./input.txt"), "utf-8")
-  .split("\r\n");
-
 export function parse(input: string): [number[], number[]] {
   const row1: number[] = [];
   const row2: number[] = [];
@@ -25,12 +21,7 @@ export function partTwo([row1, row2]: [number[], number[]]): number {
       acc[num] = (acc[num] || 0) + 1;
       return acc;
     },
-    {} as Record<number, number>,
+    {} as Record<number, number>
   );
   return row1.reduce((sum, a) => sum + a * (row2Count[a] || 0), 0);
 }
-
-const [row1, row2] = parse(input.join("\r\n"));
-
-partOne([row1, row2]);
-partTwo([row1, row2]);

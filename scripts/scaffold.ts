@@ -1,20 +1,20 @@
-import chalk from 'chalk'
-import dedent from 'dedent'
-import { existsSync } from 'node:fs'
-import { mkdir } from 'node:fs/promises'
+import chalk from "chalk";
+import dedent from "dedent";
+import { existsSync } from "node:fs";
+import { mkdir } from "node:fs/promises";
 
-import { fetchInput } from './api.ts'
+import { fetchInput } from "./api.ts";
 
 export async function scaffold(day: number, year: number) {
-  const name = `${day}`.padStart(2, '0')
+  const name = `${day}`.padStart(2, "0");
 
-  const directory = new URL(`../src/${name}/`, import.meta.url)
+  const directory = new URL(`../src/${name}/`, import.meta.url);
 
-  if (existsSync(directory)) return
+  if (existsSync(directory)) return;
 
-  console.log(`📂 Setting up day ${day} of ${year}`)
+  console.log(`📂 Setting up day ${day} of ${year}`);
 
-  await mkdir(directory)
+  await mkdir(directory);
 
   const solution = dedent`
   export function parse(input: string) {
@@ -24,21 +24,21 @@ export async function scaffold(day: number, year: number) {
   export function partOne(input: ReturnType<typeof parse>) {}
 
   export function partTwo(input: ReturnType<typeof parse>) {}
-  `
+  `;
 
-  console.log(`📂 Fetching your input`)
+  console.log(`📂 Fetching your input`);
 
   const input = await fetchInput({ day, year }).catch(() => {
     console.log(
       chalk.red.bold(
-        '📂 Fetching your input have failed, empty file will be created.'
+        "📂 Fetching your input have failed, empty file will be created."
       )
-    )
-  })
+    );
+  });
 
-  await Bun.write(new URL(`${name}.ts`, directory.href).pathname, solution)
-  await Bun.write(new URL(`input.txt`, directory.href).pathname, input ?? '')
-  await Bun.write(new URL(`example.txt`, directory.href).pathname, '')
+  await Bun.write(new URL(`${name}.ts`, directory.href).pathname, solution);
+  await Bun.write(new URL(`input.txt`, directory.href).pathname, input ?? "");
+  await Bun.write(new URL(`example.txt`, directory.href).pathname, "");
 
-  console.log('📂 You all set up, have fun!')
+  console.log("📂 You all set up, have fun!");
 }
